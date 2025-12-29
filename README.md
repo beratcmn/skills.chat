@@ -1,54 +1,91 @@
-# skills.chat
+<p align="center">
+  <h1 align="center">skills.chat</h1>
+  <p align="center">
+    <strong>Search and install Agent Skills from prompts.chat</strong>
+  </p>
+  <p align="center">
+    A beautiful CLI tool to discover, favorite, and install AI agent skills into your local development environment.
+  </p>
+</p>
 
-Search and install Agent Skills from prompts.chat to your local development environment.
+<p align="center">
+  <a href="https://github.com/beratcmn/skills.chat/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="https://bun.sh"><img src="https://img.shields.io/badge/runtime-Bun-f9f1e1.svg" alt="Bun"></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.0-blue.svg" alt="TypeScript"></a>
+</p>
 
-## Features
+---
 
-- Search prompts from prompts.chat registry
-- Multi-select skills for batch installation
-- Edit skill names before installation
-- Support for multiple coding tools:
-  - OpenAI Codex (`.codex/skills/<name>/SKILL.md`)
-  - OpenCode (`.opencode/skill/<name>/SKILL.md`)
-  - Anthropic Claude (`.claude/skills/<name>/SKILL.md`)
-  - Cursor (`.cursor/rules/<name>/SKILL.md`)
+## ✨ Features
 
-## Usage
+- 🔍 **Search** — Find prompts from the prompts.chat registry
+- ⭐ **Favorites** — Save skills for quick access without re-searching
+- 📦 **Batch Install** — Select multiple skills and install them at once
+- ✏️ **Custom Names** — Edit skill names before installation
+- 🛠️ **Multi-Tool Support** — Works with all major AI coding assistants
+
+## 🎯 Supported Tools
+
+| Tool             | Install Path                      |
+| ---------------- | --------------------------------- |
+| OpenAI Codex     | `.codex/skills/<name>/SKILL.md`   |
+| OpenCode         | `.opencode/skill/<name>/SKILL.md` |
+| Anthropic Claude | `.claude/skills/<name>/SKILL.md`  |
+| Cursor           | `.cursor/rules/<name>/SKILL.md`   |
+
+## 🚀 Quick Start
 
 ```bash
-# Run the CLI
-bun run start
+# Run directly with bunx
 bunx skills.chat
 
-# Install globally (optional)
-npm install -g skills.chat
-skills.chat
+# Or clone and run locally
+git clone https://github.com/beratcmn/skills.chat.git
+cd skills.chat
+bun install
+bun run start
 ```
 
-## Keyboard Controls
+## ⌨️ Keyboard Controls
 
-- `↑↓` - Navigate / scroll
-- `Space` - Select / deselect
-- `Enter` - Confirm / install
-- `Esc` - Go back
+| Key     | Action                              |
+| ------- | ----------------------------------- |
+| `↑` `↓` | Navigate / scroll                   |
+| `Space` | Select / deselect                   |
+| `Enter` | Confirm / install                   |
+| `f`     | Toggle favorite                     |
+| `d`     | Remove favorite (in favorites view) |
+| `Esc`   | Go back                             |
 
-## Installation
+## 📁 How It Works
 
-Skills are saved to your current working directory with auto-created directories.
+1. **Select your tool** — Choose which AI assistant you're using
+2. **Search or browse favorites** — Find prompts or access saved ones
+3. **Select skills** — Pick one or more skills to install
+4. **Edit names** — Customize the skill names (kebab-case)
+5. **Install** — Skills are saved to your current working directory
 
-## Format
 
-Installed skills follow the Agent Skills standard:
+## 💾 Favorites
 
-```markdown
+Favorites are stored globally at `~/.skills-chat/favorites.json`, so they persist across projects and sessions.
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
 ---
-name: <skill-name>
-source: prompts.chat
-promptId: <id>
-author: <author>
-category: <category>
-tags: [<tags>]
----
 
-<prompt content>
-```
+<p align="center">
+  Made with ❤️ for the AI coding community
+</p>

@@ -4,7 +4,7 @@
     <strong>Search and install Agent Skills from prompts.chat</strong>
   </p>
   <p align="center">
-    A beautiful CLI tool to discover, favorite, and install AI agent skills into your local development environment.
+    A beautiful CLI tool to discover, favorite, and install Agent Skills into your local development environment.
   </p>
 </p>
 

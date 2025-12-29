@@ -15,20 +15,7 @@ export function toKebabCase(str: string): string {
 }
 
 export function generateSkillContent(skill: SelectedSkill): string {
-  const { prompt, name } = skill;
-  const frontmatter = [
-    '---',
-    `name: ${name}`,
-    `source: prompts.chat`,
-    `promptId: ${prompt.id}`,
-    `author: ${prompt.author}`,
-    `category: ${prompt.category}`,
-    `tags: [${prompt.tags.map(t => `"${t}"`).join(', ')}]`,
-    '---',
-    '',
-    prompt.content,
-  ].join('\n');
-  return frontmatter;
+  return skill.prompt.content;
 }
 
 export function installSkill(tool: Tool, skill: SelectedSkill): void {

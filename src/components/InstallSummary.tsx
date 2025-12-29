@@ -1,8 +1,8 @@
-import React from 'react';
-import { Box, Text, useInput } from 'ink';
-import type { Tool, SelectedSkill } from '../types';
-import { TOOLS } from '../types';
-import { installSkill } from '../utils/paths';
+import React from "react";
+import { Box, Text, useInput } from "ink";
+import type { Tool, SelectedSkill } from "../types";
+import { TOOLS } from "../types";
+import { installSkill } from "../utils/paths";
 
 interface Props {
   skills: SelectedSkill[];
@@ -11,15 +11,20 @@ interface Props {
   onBack: () => void;
 }
 
-export default function InstallSummary({ skills, tool, onInstall, onBack }: Props) {
-  const toolInfo = TOOLS.find(t => t.id === tool)!;
+export default function InstallSummary({
+  skills,
+  tool,
+  onInstall,
+  onBack,
+}: Props) {
+  const toolInfo = TOOLS.find((t) => t.id === tool)!;
 
   useInput((input, key) => {
     if (key.return) {
-      skills.forEach(skill => installSkill(tool, skill));
+      skills.forEach((skill) => installSkill(tool, skill));
       onInstall();
     }
-    if (key.escape || input === 'b') {
+    if (key.escape || input === "b") {
       onBack();
     }
   });
@@ -61,10 +66,10 @@ interface SuccessProps {
 
 export function Success({ count, onContinue, onExit }: SuccessProps) {
   useInput((input, key) => {
-    if (key.return || input === ' ') {
+    if (key.return || input === " ") {
       onContinue();
     }
-    if (key.escape || input === 'q') {
+    if (key.escape || input === "q") {
       onExit();
     }
   });

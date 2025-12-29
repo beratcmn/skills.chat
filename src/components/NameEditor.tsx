@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Box, Text, useInput } from 'ink';
-import type { SelectedSkill } from '../types';
+import React, { useState } from "react";
+import { Box, Text, useInput } from "ink";
+import type { SelectedSkill } from "../types";
 
 interface Props {
   skills: SelectedSkill[];
@@ -10,17 +10,17 @@ interface Props {
 
 export default function NameEditor({ skills, onConfirm, onBack }: Props) {
   const [editingIdx, setEditingIdx] = useState(0);
-  const [names, setNames] = useState(skills.map(s => s.name));
+  const [names, setNames] = useState(skills.map((s) => s.name));
 
   useInput((input, key) => {
     if (key.upArrow) {
-      setEditingIdx(i => Math.max(0, i - 1));
+      setEditingIdx((i) => Math.max(0, i - 1));
     }
     if (key.downArrow) {
-      setEditingIdx(i => Math.min(skills.length - 1, i + 1));
+      setEditingIdx((i) => Math.min(skills.length - 1, i + 1));
     }
     if (key.backspace || key.delete) {
-      setNames(n => {
+      setNames((n) => {
         const copy = [...n];
         copy[editingIdx] = copy[editingIdx].slice(0, -1);
         return copy;
@@ -30,11 +30,11 @@ export default function NameEditor({ skills, onConfirm, onBack }: Props) {
       const updated = skills.map((s, i) => ({ ...s, name: names[i] }));
       onConfirm(updated);
     }
-    if (key.escape || input === 'b') {
+    if (key.escape || input === "b") {
       onBack();
     }
     if (input && !key.ctrl && !key.meta && input.length === 1) {
-      setNames(n => {
+      setNames((n) => {
         const copy = [...n];
         copy[editingIdx] += input;
         return copy;
@@ -50,11 +50,7 @@ export default function NameEditor({ skills, onConfirm, onBack }: Props) {
 
       {skills.map((skill, idx) => (
         <Box key={skill.prompt.id}>
-          {idx === editingIdx ? (
-            <Text color="cyan">▸</Text>
-          ) : (
-            <Text> </Text>
-          )}
+          {idx === editingIdx ? <Text color="cyan">▸</Text> : <Text> </Text>}
           <Text> </Text>
           <Text color="gray">{idx + 1}.</Text>
           <Text> </Text>

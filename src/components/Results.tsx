@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Text, useInput } from 'ink';
-import type { Prompt } from '../types';
+import React, { useState, useEffect } from "react";
+import { Box, Text, useInput } from "ink";
+import type { Prompt } from "../types";
 
 interface Props {
   results: Prompt[];
@@ -9,7 +9,12 @@ interface Props {
   onBack: () => void;
 }
 
-export default function Results({ results, selected, onSelect, onBack }: Props) {
+export default function Results({
+  results,
+  selected,
+  onSelect,
+  onBack,
+}: Props) {
   const [cursor, setCursor] = useState(0);
   const VISIBLE = 10;
 
@@ -19,12 +24,12 @@ export default function Results({ results, selected, onSelect, onBack }: Props) 
 
   useInput((input, key) => {
     if (key.upArrow) {
-      setCursor(c => Math.max(0, c - 1));
+      setCursor((c) => Math.max(0, c - 1));
     }
     if (key.downArrow) {
-      setCursor(c => Math.min(results.length - 1, c + 1));
+      setCursor((c) => Math.min(results.length - 1, c + 1));
     }
-    if (input === ' ') {
+    if (input === " ") {
       const id = results[cursor]?.id;
       if (id) {
         const newSelected = new Set(selected);
@@ -39,12 +44,15 @@ export default function Results({ results, selected, onSelect, onBack }: Props) 
     if (key.return && selected.size > 0) {
       onSelect(Array.from(selected));
     }
-    if (key.escape || input === 'b') {
+    if (key.escape || input === "b") {
       onBack();
     }
   });
 
-  const scrollStart = Math.max(0, Math.min(cursor - 3, results.length - VISIBLE));
+  const scrollStart = Math.max(
+    0,
+    Math.min(cursor - 3, results.length - VISIBLE),
+  );
   const visible = results.slice(scrollStart, scrollStart + VISIBLE);
 
   return (
@@ -74,7 +82,9 @@ export default function Results({ results, selected, onSelect, onBack }: Props) 
             <Text> </Text>
             <Text color="gray">{globalIdx + 1}.</Text>
             <Text> </Text>
-            <Text color={isSelected ? 'green' : isCursor ? 'white' : 'dim'}>{prompt.title}</Text>
+            <Text color={isSelected ? "green" : isCursor ? "white" : "dim"}>
+              {prompt.title}
+            </Text>
           </Box>
         );
       })}
@@ -82,19 +92,23 @@ export default function Results({ results, selected, onSelect, onBack }: Props) 
       {results.length > VISIBLE && (
         <Box marginTop={1}>
           <Text color="gray">
-            {cursor > 0 ? '↑' : ' '} {cursor < results.length - 1 ? '↓' : ' '}
+            {cursor > 0 ? "↑" : " "} {cursor < results.length - 1 ? "↓" : " "}
           </Text>
         </Box>
       )}
 
       {selected.size > 0 && (
         <Box marginTop={1} flexDirection="column">
-          <Text color="green" bold>Selected:</Text>
-          {results.filter(p => selected.has(p.id)).map(p => (
-            <Box key={p.id}>
-              <Text color="green">  • {p.title}</Text>
-            </Box>
-          ))}
+          <Text color="green" bold>
+            Selected:
+          </Text>
+          {results
+            .filter((p) => selected.has(p.id))
+            .map((p) => (
+              <Box key={p.id}>
+                <Text color="green"> • {p.title}</Text>
+              </Box>
+            ))}
         </Box>
       )}
 

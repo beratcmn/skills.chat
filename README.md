@@ -36,6 +36,9 @@
 | OpenCode         | `.opencode/skill/<name>/SKILL.md` |
 | Anthropic Claude | `.claude/skills/<name>/SKILL.md`  |
 | Cursor           | `.cursor/rules/<name>/SKILL.md`   |
+| GitHub Copilot   | `.github/skills/<name>/SKILL.md`  |
+| Letta Code       | `.skills/<name>/SKILL.md`          |
+| Goose            | `.goose/skills/<name>/SKILL.md`   |
 | Amp Code         | `.agents/skills/<name>/SKILL.md`  |
 
 ## 🚀 Quick Start
@@ -64,13 +67,28 @@ bun run start
 
 ## ⌨️ Keyboard Controls
 
+### Tool Selector (Grid View)
+| Key       | Action        |
+| --------- | ------------- |
+| `←` `→`   | Navigate columns |
+| `↑` `↓`   | Navigate rows    |
+| `Enter`    | Select tool     |
+
+### Search & Results
 | Key     | Action                              |
 | ------- | ----------------------------------- |
 | `↑` `↓` | Navigate / scroll                   |
 | `Space` | Select / deselect                   |
-| `Enter` | Confirm / install                   |
+| `Enter` | Confirm / proceed                   |
 | `f`     | Toggle favorite                     |
-| `d`     | Remove favorite (in favorites view) |
+| `Esc`   | Go back                             |
+
+### Favorites View
+| Key     | Action                              |
+| ------- | ----------------------------------- |
+| `↑` `↓` | Navigate                            |
+| `d`     | Remove favorite                     |
+| `Enter` | Select skill                        |
 | `Esc`   | Go back                             |
 
 ## 📁 How It Works

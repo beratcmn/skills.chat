@@ -6,6 +6,7 @@ interface Props {
   children: React.ReactNode;
   borderColor?: string;
   width?: number;
+  height?: number;
   selected?: boolean;
   padding?: number;
 }
@@ -14,11 +15,13 @@ export default function Card({
   children,
   borderColor = theme.colors.border,
   width = 50,
+  height,
   selected = false,
   padding = 1,
 }: Props) {
   const activeColor = selected ? theme.colors.primary : borderColor;
   const innerWidth = width - 2;
+  const innerHeight = height ? height - 2 : undefined;
 
   return (
     <Box flexDirection="column">
@@ -29,7 +32,12 @@ export default function Card({
       </Text>
       <Box flexDirection="row">
         <Text color={activeColor}>{theme.icons.box.vertical}</Text>
-        <Box flexDirection="column" width={innerWidth} paddingX={padding}>
+        <Box
+          flexDirection="column"
+          width={innerWidth}
+          paddingX={padding}
+          height={innerHeight}
+        >
           {children}
         </Box>
         <Text color={activeColor}>{theme.icons.box.vertical}</Text>

@@ -52,3 +52,17 @@ export interface SelectedSkill {
   prompt: Prompt;
   name: string;
 }
+
+export interface FavoritePrompt {
+  id: string;
+  title: string;
+  description: string;
+  content: string;
+  type: string;
+  author: string;
+  category: string;
+  tags: string[];
+  votes: number;
+  createdAt: string;
+  favoritedAt: string;
+}

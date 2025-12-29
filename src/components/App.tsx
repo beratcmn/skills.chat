@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import { Box, Text, useApp } from "ink";
-import type { Tool, SelectedSkill, Prompt } from "../types";
+import type { Tool, SelectedSkill, Prompt, FavoritePrompt } from "../types";
 import ToolSelector from "./ToolSelector";
+import ModeSelector, { type Mode } from "./ModeSelector";
 import Search from "./Search";
 import Results from "./Results";
+import Favorites from "./Favorites";
 import NameEditor from "./NameEditor";
 import InstallSummary, { Success } from "./InstallSummary";
 import { TOOLS } from "../types";
+import { loadFavorites } from "../utils/favorites";
 
-type Step = "tool" | "search" | "results" | "names" | "summary" | "done";
+type Step =
+  | "tool"
+  | "mode"
+  | "search"
+  | "results"
+  | "favorites"
+  | "names"
+  | "summary"
+  | "done";
 
 interface AppState {
   step: Step;
   tool: Tool | null;
+  mode: Mode | null;
   query: string;
   results: Prompt[];
   selected: Set<string>;
@@ -23,6 +35,7 @@ export default function App() {
   const [state, setState] = useState<AppState>({
     step: "tool",
     tool: null,
+    mode: null,
     query: "",
     results: [],
     selected: new Set(),
@@ -33,6 +46,7 @@ export default function App() {
     setState({
       step: "tool",
       tool: null,
+      mode: null,
       query: "",
       results: [],
       selected: new Set(),
@@ -41,7 +55,15 @@ export default function App() {
   };
 
   const handleToolSelect = (tool: Tool) => {
-    setState((s) => ({ ...s, tool, step: "search" }));
+    setState((s) => ({ ...s, tool, step: "mode" }));
+  };
+
+  const handleModeSelect = (mode: Mode) => {
+    if (mode === "favorites") {
+      setState((s) => ({ ...s, mode, step: "favorites" }));
+    } else {
+      setState((s) => ({ ...s, mode, step: "search" }));
+    }
   };
 
   const handleSearch = (query: string, results: Prompt[]) => {
@@ -55,6 +77,20 @@ export default function App() {
       .map((p) => ({
         prompt: p,
         name: p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      }));
+    setState((s) => ({ ...s, selected, skills, step: "names" }));
+  };
+
+  const handleFavoritesSelect = (
+    ids: string[],
+    favorites: FavoritePrompt[],
+  ) => {
+    const selected = new Set(ids);
+    const skills: SelectedSkill[] = favorites
+      .filter((f) => selected.has(f.id))
+      .map((f) => ({
+        prompt: f,
+        name: f.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       }));
     setState((s) => ({ ...s, selected, skills, step: "names" }));
   };
@@ -95,6 +131,13 @@ export default function App() {
       )}
 
       {state.step === "tool" && <ToolSelector onSelect={handleToolSelect} />}
+      {state.step === "mode" && (
+        <ModeSelector
+          onSelect={handleModeSelect}
+          onBack={() => setState((s) => ({ ...s, step: "tool" }))}
+          favoritesCount={loadFavorites().length}
+        />
+      )}
       {state.step === "search" && <Search onSearch={handleSearch} />}
       {state.step === "results" && (
         <Results
@@ -104,11 +147,22 @@ export default function App() {
           onBack={() => setState((s) => ({ ...s, step: "search" }))}
         />
       )}
+      {state.step === "favorites" && (
+        <Favorites
+          onSelect={handleFavoritesSelect}
+          onBack={() => setState((s) => ({ ...s, step: "mode" }))}
+        />
+      )}
       {state.step === "names" && (
         <NameEditor
           skills={state.skills}
           onConfirm={handleNamesConfirm}
-          onBack={() => setState((s) => ({ ...s, step: "results" }))}
+          onBack={() =>
+            setState((s) => ({
+              ...s,
+              step: state.mode === "favorites" ? "favorites" : "results",
+            }))
+          }
         />
       )}
       {state.step === "summary" && (

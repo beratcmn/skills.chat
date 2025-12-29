@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, useInput } from "ink";
 import type { Prompt } from "../types";
+import { isFavorite, toggleFavorite } from "../utils/favorites";
 
 interface Props {
   results: Prompt[];
@@ -16,10 +17,15 @@ export default function Results({
   onBack,
 }: Props) {
   const [cursor, setCursor] = useState(0);
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const VISIBLE = 10;
 
   useEffect(() => {
     setCursor(0);
+    const favSet = new Set(
+      results.filter((p) => isFavorite(p.id)).map((p) => p.id),
+    );
+    setFavorites(favSet);
   }, [results]);
 
   useInput((input, key) => {
@@ -47,6 +53,21 @@ export default function Results({
     if (key.escape || input === "b") {
       onBack();
     }
+    if (input === "f") {
+      const prompt = results[cursor];
+      if (prompt) {
+        const { added } = toggleFavorite(prompt);
+        setFavorites((prev) => {
+          const newSet = new Set(prev);
+          if (added) {
+            newSet.add(prompt.id);
+          } else {
+            newSet.delete(prompt.id);
+          }
+          return newSet;
+        });
+      }
+    }
   });
 
   const scrollStart = Math.max(
@@ -70,6 +91,7 @@ export default function Results({
         const globalIdx = scrollStart + idx;
         const isSelected = selected.has(prompt.id);
         const isCursor = globalIdx === cursor;
+        const isFav = favorites.has(prompt.id);
         return (
           <Box key={prompt.id}>
             {isSelected ? (
@@ -78,6 +100,12 @@ export default function Results({
               <Text color="cyan">▸</Text>
             ) : (
               <Text> </Text>
+            )}
+            <Text> </Text>
+            {isFav ? (
+              <Text color="yellow">★</Text>
+            ) : (
+              <Text color="gray">☆</Text>
             )}
             <Text> </Text>
             <Text color="gray">{globalIdx + 1}.</Text>
@@ -116,6 +144,8 @@ export default function Results({
         <Text color="gray">↑↓ navigate, </Text>
         <Text color="cyan">Space</Text>
         <Text color="gray"> select, </Text>
+        <Text color="yellow">f</Text>
+        <Text color="gray"> favorite, </Text>
         <Text color="cyan">Enter</Text>
         <Text color="gray"> continue, </Text>
         <Text color="cyan">Esc</Text>

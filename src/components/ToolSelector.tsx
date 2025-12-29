@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import { Box, Text, useInput } from "ink";
 import type { Tool } from "../types";
-import { TOOLS } from "../types";
+import { TOOLS } from "../utils/tools";
 import { KeyHint, Card } from "./ui";
 import { theme } from "../utils/theme";
 
 interface Props {
   onSelect: (tool: Tool) => void;
 }
-
-const TOOL_DESCRIPTIONS: Record<Tool, string> = {
-  codex: "OpenAI's coding assistant with CLI integration",
-  opencode: "Open-source AI coding companion",
-  claude: "Anthropic's AI assistant for developers",
-  cursor: "AI-first code editor with smart completions",
-};
 
 export default function ToolSelector({ onSelect }: Props) {
   const [selected, setSelected] = useState(0);
@@ -39,21 +32,22 @@ export default function ToolSelector({ onSelect }: Props) {
 
       {TOOLS.map((tool, index) => {
         const isSelected = index === selected;
-        const toolTheme = theme.tools[tool.id];
 
         return (
           <Box key={tool.id} marginBottom={index < TOOLS.length - 1 ? 1 : 0}>
             <Card
               selected={isSelected}
-              borderColor={isSelected ? toolTheme.color : theme.colors.textDim}
+              borderColor={
+                isSelected ? tool.displayColor : theme.colors.textDim
+              }
               width={52}
             >
               <Box>
                 <Text
-                  color={isSelected ? toolTheme.color : theme.colors.textDim}
+                  color={isSelected ? tool.displayColor : theme.colors.textDim}
                   bold={isSelected}
                 >
-                  {toolTheme.icon} {tool.name}
+                  {tool.icon} {tool.name}
                 </Text>
               </Box>
               <Box>
@@ -62,7 +56,7 @@ export default function ToolSelector({ onSelect }: Props) {
                     isSelected ? theme.colors.textMuted : theme.colors.textDim
                   }
                 >
-                  {TOOL_DESCRIPTIONS[tool.id]}
+                  {tool.description}
                 </Text>
               </Box>
               <Box marginTop={0}>

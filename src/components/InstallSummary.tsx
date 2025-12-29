@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, useInput } from "ink";
 import Gradient from "ink-gradient";
 import type { Tool, SelectedSkill } from "../types";
-import { TOOLS } from "../types";
+import { TOOLS } from "../utils/tools";
 import { installSkill } from "../utils/paths";
 import { KeyHint, Spinner, Card } from "./ui";
 import { theme } from "../utils/theme";
@@ -21,7 +21,6 @@ export default function InstallSummary({
   onBack,
 }: Props) {
   const toolInfo = TOOLS.find((t) => t.id === tool)!;
-  const toolTheme = theme.tools[tool];
   const [installing, setInstalling] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -65,8 +64,8 @@ export default function InstallSummary({
           {skills.length}
         </Text>
         <Text color={theme.colors.text}> skill(s) to </Text>
-        <Text color={toolTheme.color} bold>
-          {toolTheme.icon} {toolInfo.name}
+        <Text color={toolInfo.displayColor} bold>
+          {toolInfo.icon} {toolInfo.name}
         </Text>
       </Box>
 

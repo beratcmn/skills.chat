@@ -1,11 +1,7 @@
 import type { Tool, SelectedSkill } from "../types";
-import { TOOLS } from "../types";
+import { getToolInfo } from "./tools";
 import { writeFileSync, mkdirSync, existsSync } from "fs";
 import { join } from "path";
-
-export function getToolInfo(tool: Tool) {
-  return TOOLS.find((t) => t.id === tool)!;
-}
 
 export function toKebabCase(str: string): string {
   return str

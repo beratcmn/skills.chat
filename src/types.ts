@@ -43,42 +43,7 @@ export interface SearchResult {
   prompts: Prompt[];
 }
 
-export type Tool = "codex" | "opencode" | "claude" | "cursor" | "ampcode";
-
-export interface ToolInfo {
-  id: Tool;
-  name: string;
-  color: string;
-  basePath: string;
-}
-
-export const TOOLS: ToolInfo[] = [
-  {
-    id: "codex",
-    name: "OpenAI Codex",
-    color: "#10a37f",
-    basePath: ".codex/skills",
-  },
-  {
-    id: "opencode",
-    name: "OpenCode",
-    color: "#6366f1",
-    basePath: ".opencode/skill",
-  },
-  {
-    id: "claude",
-    name: "Anthropic Claude",
-    color: "#d4a574",
-    basePath: ".claude/skills",
-  },
-  { id: "cursor", name: "Cursor", color: "#7c3aed", basePath: ".cursor/rules" },
-  {
-    id: "ampcode",
-    name: "Amp Code",
-    color: "#f97316",
-    basePath: ".agents/skills",
-  },
-];
+export type { Tool, ToolInfo } from "./utils/tools";
 
 export interface SelectedSkill {
   prompt: Prompt;

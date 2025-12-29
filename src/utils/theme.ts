@@ -39,14 +39,6 @@ export const theme = {
     sunset: ["#fda4af", "#fcd34d", "#fdba74"],
   },
 
-  tools: {
-    codex: { color: "#86efac", icon: "◆" },
-    opencode: { color: "#a5b4fc", icon: "◇" },
-    claude: { color: "#fcd34d", icon: "◈" },
-    cursor: { color: "#c4b5fd", icon: "◉" },
-    ampcode: { color: "#fdba74", icon: "◎" },
-  },
-
   icons: {
     selected: "✓",
     cursor: "▸",

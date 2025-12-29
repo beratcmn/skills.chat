@@ -8,7 +8,7 @@ import Results from "./Results";
 import Favorites from "./Favorites";
 import NameEditor from "./NameEditor";
 import InstallSummary, { Success } from "./InstallSummary";
-import { TOOLS } from "../types";
+import { TOOLS } from "../utils/tools";
 import { loadFavorites } from "../utils/favorites";
 import { Header } from "./ui";
 import { theme } from "../utils/theme";
@@ -110,6 +110,7 @@ export default function App() {
   };
 
   const toolInfo = state.tool ? TOOLS.find((t) => t.id === state.tool) : null;
+  const toolTheme = toolInfo ? TOOLS.find((t) => t.id === toolInfo.id)! : null;
 
   const getStepIndicator = () => {
     const steps = ["tool", "mode", "search", "results", "names", "summary"];
@@ -153,11 +154,11 @@ export default function App() {
     <Box flexDirection="column" padding={1}>
       <Header showBigText={state.step === "tool"} />
 
-      {toolInfo && state.step !== "tool" && (
+      {toolTheme && state.step !== "tool" && (
         <Box marginBottom={1}>
           <Text color={theme.colors.textMuted}>Target: </Text>
-          <Text color={theme.tools[toolInfo.id].color}>
-            {theme.tools[toolInfo.id].icon} {toolInfo.name}
+          <Text color={toolTheme.displayColor}>
+            {toolTheme.icon} {toolTheme.name}
           </Text>
         </Box>
       )}

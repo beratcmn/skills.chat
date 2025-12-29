@@ -39,6 +39,16 @@ export const theme = {
     sunset: ["#fda4af", "#fcd34d", "#fdba74"],
   },
 
+  christmas: {
+    treeGreen: "#22c55e",
+    star: "#fcd34d",
+    ornamentRed: "#ef4444",
+    ornamentBlue: "#3b82f6",
+    ornamentGold: "#f59e0b",
+    trunk: "#92400e",
+    snow: "#ffffff",
+  },
+
   icons: {
     selected: "✓",
     cursor: "▸",

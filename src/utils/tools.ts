@@ -2,7 +2,7 @@ export const TOOLS = [
   {
     id: "codex",
     name: "OpenAI Codex",
-    description: "OpenAI's coding assistant with CLI integration",
+    description: "Cloud-based software engineering agent working on many tasks in parallel",
     color: "#10a37f",
     displayColor: "#86efac",
     icon: "◆",
@@ -11,7 +11,7 @@ export const TOOLS = [
   {
     id: "opencode",
     name: "OpenCode",
-    description: "Open-source AI coding companion",
+    description: "The open source AI coding agent - write code in terminal, IDE, or desktop",
     color: "#6366f1",
     displayColor: "#a5b4fc",
     icon: "◇",
@@ -20,16 +20,16 @@ export const TOOLS = [
   {
     id: "claude",
     name: "Anthropic Claude",
-    description: "Anthropic's AI assistant for developers",
-    color: "#d4a574",
-    displayColor: "#fcd34d",
+    description: "Anthropic's AI assistant - helpful, honest, and harmless",
+    color: "#da7756",
+    displayColor: "#fdba74",
     icon: "◈",
     basePath: ".claude/skills",
   },
   {
     id: "cursor",
     name: "Cursor",
-    description: "AI-first code editor with smart completions",
+    description: "The AI-first code editor with smart completions",
     color: "#7c3aed",
     displayColor: "#c4b5fd",
     icon: "◉",
@@ -38,7 +38,7 @@ export const TOOLS = [
   {
     id: "ampcode",
     name: "Amp Code",
-    description: "AI-powered coding assistant",
+    description: "The frontier coding agent built by Sourcegraph for teams and outcomes",
     color: "#f97316",
     displayColor: "#fdba74",
     icon: "◎",

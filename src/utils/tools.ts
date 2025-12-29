@@ -2,7 +2,8 @@ export const TOOLS = [
   {
     id: "codex",
     name: "OpenAI Codex",
-    description: "Cloud-based software engineering agent working on many tasks in parallel",
+    description:
+      "Cloud-based software engineering agent working on many tasks in parallel",
     color: "#10a37f",
     displayColor: "#86efac",
     icon: "◆",
@@ -11,7 +12,8 @@ export const TOOLS = [
   {
     id: "opencode",
     name: "OpenCode",
-    description: "The open source AI coding agent - write code in terminal, IDE, or desktop",
+    description:
+      "The open source AI coding agent - write code in terminal, IDE, or desktop",
     color: "#6366f1",
     displayColor: "#a5b4fc",
     icon: "◇",
@@ -36,9 +38,40 @@ export const TOOLS = [
     basePath: ".cursor/rules",
   },
   {
+    id: "copilot",
+    name: "GitHub Copilot",
+    description:
+      "AI coding assistant that helps you write code faster with less effort",
+    color: "#09aa6c",
+    displayColor: "#6ee7b7",
+    icon: "◌",
+    basePath: ".github/skills",
+  },
+  {
+    id: "letta",
+    name: "Letta Code",
+    description:
+      "Memory-first coding agent that learns continuously and improves over time",
+    color: "#da244b",
+    displayColor: "#fda4af",
+    icon: "◍",
+    basePath: ".skills",
+  },
+  {
+    id: "goose",
+    name: "Goose",
+    description:
+      "Open source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM",
+    color: "#64748b",
+    displayColor: "#94a3b8",
+    icon: "◐",
+    basePath: ".goose/skills",
+  },
+  {
     id: "ampcode",
     name: "Amp Code",
-    description: "The frontier coding agent built by Sourcegraph for teams and outcomes",
+    description:
+      "The frontier coding agent built by Sourcegraph for teams and outcomes",
     color: "#f97316",
     displayColor: "#fdba74",
     icon: "◎",

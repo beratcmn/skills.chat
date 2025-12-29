@@ -2,10 +2,19 @@ import React, { useState } from "react";
 import { Box, Text, useInput } from "ink";
 import type { Tool } from "../types";
 import { TOOLS } from "../types";
+import { KeyHint, Card } from "./ui";
+import { theme } from "../utils/theme";
 
 interface Props {
   onSelect: (tool: Tool) => void;
 }
+
+const TOOL_DESCRIPTIONS: Record<Tool, string> = {
+  codex: "OpenAI's coding assistant with CLI integration",
+  opencode: "Open-source AI coding companion",
+  claude: "Anthropic's AI assistant for developers",
+  cursor: "AI-first code editor with smart completions",
+};
 
 export default function ToolSelector({ onSelect }: Props) {
   const [selected, setSelected] = useState(0);
@@ -24,20 +33,47 @@ export default function ToolSelector({ onSelect }: Props) {
 
   return (
     <Box flexDirection="column">
-      {TOOLS.map((tool, index) => (
-        <Box key={tool.id}>
-          {index === selected ? (
-            <Text color={tool.color}>▸ {tool.name}</Text>
-          ) : (
-            <Text color="gray"> {tool.name}</Text>
-          )}
-        </Box>
-      ))}
-      <Box marginTop={1}>
-        <Text color="gray">↑↓ to navigate, </Text>
-        <Text color="cyan">Enter</Text>
-        <Text color="gray"> to select</Text>
+      <Box marginBottom={1}>
+        <Text color={theme.colors.text}>Select your coding tool</Text>
       </Box>
+
+      {TOOLS.map((tool, index) => {
+        const isSelected = index === selected;
+        const toolTheme = theme.tools[tool.id];
+
+        return (
+          <Box key={tool.id} marginBottom={index < TOOLS.length - 1 ? 1 : 0}>
+            <Card
+              selected={isSelected}
+              borderColor={isSelected ? toolTheme.color : theme.colors.textDim}
+              width={52}
+            >
+              <Box>
+                <Text color={toolTheme.color} bold>
+                  {toolTheme.icon} {tool.name}
+                </Text>
+              </Box>
+              <Box>
+                <Text color={theme.colors.textMuted}>
+                  {TOOL_DESCRIPTIONS[tool.id]}
+                </Text>
+              </Box>
+              <Box marginTop={0}>
+                <Text color={theme.colors.textDim}>
+                  {theme.icons.arrow} {tool.basePath}
+                </Text>
+              </Box>
+            </Card>
+          </Box>
+        );
+      })}
+
+      <KeyHint
+        hints={[
+          { key: "↑↓", label: "navigate" },
+          { key: "Enter", label: "select" },
+        ]}
+      />
     </Box>
   );
 }

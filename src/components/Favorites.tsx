@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, useInput } from "ink";
-import type { FavoritePrompt } from "../types";
+import { type FavoritePrompt, getAuthorName } from "../types";
 import { loadFavorites, removeFavorite } from "../utils/favorites";
+import { KeyHint, Badge, Card } from "./ui";
+import { theme } from "../utils/theme";
 
 interface Props {
   onSelect: (ids: string[], favorites: FavoritePrompt[]) => void;
@@ -12,7 +14,7 @@ export default function Favorites({ onSelect, onBack }: Props) {
   const [favorites, setFavorites] = useState<FavoritePrompt[]>([]);
   const [cursor, setCursor] = useState(0);
   const [selected, setSelected] = useState<Set<string>>(new Set());
-  const VISIBLE = 10;
+  const VISIBLE = 6;
 
   useEffect(() => {
     setFavorites(loadFavorites());
@@ -70,34 +72,42 @@ export default function Favorites({ onSelect, onBack }: Props) {
   if (favorites.length === 0) {
     return (
       <Box flexDirection="column">
-        <Box marginBottom={1}>
-          <Text color="yellow">No favorites saved yet.</Text>
-        </Box>
-        <Text color="gray">Search for prompts and press </Text>
-        <Text color="cyan">f</Text>
-        <Text color="gray"> to add them to favorites.</Text>
-        <Box marginTop={1}>
-          <Text color="cyan">Esc</Text>
-          <Text color="gray"> to go back</Text>
-        </Box>
+        <Card borderColor={theme.colors.amber} width={50}>
+          <Box flexDirection="column" alignItems="center">
+            <Text color={theme.colors.amber} bold>
+              {theme.icons.star} No favorites yet
+            </Text>
+            <Box marginTop={1}>
+              <Text color={theme.colors.textMuted}>
+                Search for skills and press{" "}
+              </Text>
+              <Text color={theme.colors.amber}>f</Text>
+              <Text color={theme.colors.textMuted}> to save them</Text>
+            </Box>
+          </Box>
+        </Card>
+
+        <KeyHint hints={[{ key: "Esc", label: "go back" }]} />
       </Box>
     );
   }
 
   const scrollStart = Math.max(
     0,
-    Math.min(cursor - 3, favorites.length - VISIBLE),
+    Math.min(cursor - 2, favorites.length - VISIBLE),
   );
   const visible = favorites.slice(scrollStart, scrollStart + VISIBLE);
 
   return (
     <Box flexDirection="column">
       <Box marginBottom={1}>
-        <Text color="yellow">★ </Text>
-        <Text color="cyan">{favorites.length}</Text>
-        <Text color="gray"> favorites</Text>
+        <Text color={theme.colors.amber}>{theme.icons.star} </Text>
+        <Text color={theme.colors.cyan} bold>
+          {favorites.length}
+        </Text>
+        <Text color={theme.colors.text}> favorites</Text>
         {selected.size > 0 && (
-          <Text color="green"> ({selected.size} selected)</Text>
+          <Text color={theme.colors.success}> ({selected.size} selected)</Text>
         )}
       </Box>
 
@@ -105,59 +115,99 @@ export default function Favorites({ onSelect, onBack }: Props) {
         const globalIdx = scrollStart + idx;
         const isSelected = selected.has(fav.id);
         const isCursor = globalIdx === cursor;
+
         return (
-          <Box key={fav.id}>
-            {isSelected ? (
-              <Text color="green">✓</Text>
-            ) : isCursor ? (
-              <Text color="cyan">▸</Text>
-            ) : (
-              <Text> </Text>
+          <Box
+            key={fav.id}
+            flexDirection="column"
+            marginBottom={1}
+            paddingLeft={1}
+            borderStyle={isCursor ? "round" : undefined}
+            borderColor={
+              isSelected
+                ? theme.colors.success
+                : isCursor
+                  ? theme.colors.amber
+                  : undefined
+            }
+          >
+            <Box>
+              {isSelected ? (
+                <Text color={theme.colors.success}>{theme.icons.selected} </Text>
+              ) : (
+                <Text color={theme.colors.textDim}>○ </Text>
+              )}
+              <Text color={theme.colors.amber}>{theme.icons.star} </Text>
+              <Text
+                color={
+                  isSelected
+                    ? theme.colors.success
+                    : isCursor
+                      ? theme.colors.text
+                      : theme.colors.textMuted
+                }
+                bold={isCursor}
+              >
+                {fav.title}
+              </Text>
+            </Box>
+
+            {isCursor && (
+              <Box flexDirection="column" paddingLeft={4}>
+                <Text color={theme.colors.textMuted} wrap="truncate">
+                  {fav.description?.slice(0, 70) || "No description"}
+                  {fav.description?.length > 70 ? "..." : ""}
+                </Text>
+                <Box marginTop={0} gap={1}>
+                  <Text color={theme.colors.textDim}>
+                    by {getAuthorName(fav.author)}
+                  </Text>
+                  <Text color={theme.colors.textDim}>•</Text>
+                  <Text color={theme.colors.textDim}>
+                    {fav.category || "General"}
+                  </Text>
+                </Box>
+              </Box>
             )}
-            <Text> </Text>
-            <Text color="yellow">★</Text>
-            <Text> </Text>
-            <Text color={isSelected ? "green" : isCursor ? "white" : "dim"}>
-              {fav.title}
-            </Text>
           </Box>
         );
       })}
 
       {favorites.length > VISIBLE && (
-        <Box marginTop={1}>
-          <Text color="gray">
-            {cursor > 0 ? "↑" : " "} {cursor < favorites.length - 1 ? "↓" : " "}
+        <Box>
+          <Text color={theme.colors.textDim}>
+            {scrollStart > 0 ? "↑ " : "  "}
+            {scrollStart + VISIBLE < favorites.length ? "↓ more" : ""}
           </Text>
         </Box>
       )}
 
       {selected.size > 0 && (
         <Box marginTop={1} flexDirection="column">
-          <Text color="green" bold>
-            Selected:
+          <Text color={theme.colors.success} bold>
+            Selected skills:
           </Text>
-          {favorites
-            .filter((f) => selected.has(f.id))
-            .map((f) => (
-              <Box key={f.id}>
-                <Text color="green"> • {f.title}</Text>
-              </Box>
-            ))}
+          <Box flexDirection="row" flexWrap="wrap" gap={1}>
+            {favorites
+              .filter((f) => selected.has(f.id))
+              .map((f) => (
+                <Badge key={f.id} backgroundColor={theme.colors.success} color="#000">
+                  {f.title}
+                </Badge>
+              ))}
+          </Box>
         </Box>
       )}
 
-      <Box marginTop={1}>
-        <Text color="gray">↑↓ navigate, </Text>
-        <Text color="cyan">Space</Text>
-        <Text color="gray"> select, </Text>
-        <Text color="red">d</Text>
-        <Text color="gray"> remove, </Text>
-        <Text color="cyan">Enter</Text>
-        <Text color="gray"> install, </Text>
-        <Text color="cyan">Esc</Text>
-        <Text color="gray"> back</Text>
-      </Box>
+      <KeyHint
+        hints={[
+          { key: "↑↓", label: "navigate" },
+          { key: "Space", label: "select" },
+          { key: "d", label: "remove" },
+          { key: "Enter", label: "install" },
+          { key: "Esc", label: "back" },
+        ]}
+      />
     </Box>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Text, useApp } from "ink";
+import { Box, Text } from "ink";
 import type { Tool, SelectedSkill, Prompt, FavoritePrompt } from "../types";
 import ToolSelector from "./ToolSelector";
 import ModeSelector, { type Mode } from "./ModeSelector";
@@ -10,6 +10,8 @@ import NameEditor from "./NameEditor";
 import InstallSummary, { Success } from "./InstallSummary";
 import { TOOLS } from "../types";
 import { loadFavorites } from "../utils/favorites";
+import { Header } from "./ui";
+import { theme } from "../utils/theme";
 
 type Step =
   | "tool"
@@ -109,26 +111,56 @@ export default function App() {
 
   const toolInfo = state.tool ? TOOLS.find((t) => t.id === state.tool) : null;
 
+  const getStepIndicator = () => {
+    const steps = ["tool", "mode", "search", "results", "names", "summary"];
+    const stepLabels = ["Tool", "Mode", "Search", "Install"];
+    const currentIdx = steps.indexOf(state.step);
+    if (currentIdx === -1) return null;
+
+    return (
+      <Box marginBottom={1}>
+        {stepLabels.map((label, idx) => {
+          const isActive = idx <= currentIdx;
+          const isCurrent = idx === currentIdx;
+          return (
+            <Box key={label}>
+              <Text
+                color={
+                  isCurrent
+                    ? theme.colors.primary
+                    : isActive
+                      ? theme.colors.success
+                      : theme.colors.textDim
+                }
+              >
+                {isActive ? "●" : "○"}
+              </Text>
+              {idx < stepLabels.length - 1 && (
+                <Text color={isActive ? theme.colors.success : theme.colors.textDim}>
+                  {" ─ "}
+                </Text>
+              )}
+            </Box>
+          );
+        })}
+      </Box>
+    );
+  };
+
   return (
     <Box flexDirection="column" padding={1}>
-      <Box marginBottom={1}>
-        <Text bold color="cyan">
-          ◇
-        </Text>
-        <Text> </Text>
-        <Text bold color="cyan">
-          Agent Skills
-        </Text>
-        <Text> </Text>
-        <Text color="gray">- Install skills from prompts.chat</Text>
-      </Box>
+      <Header showBigText={state.step === "tool"} />
 
-      {toolInfo && (
+      {toolInfo && state.step !== "tool" && (
         <Box marginBottom={1}>
-          <Text color="gray">Target: </Text>
-          <Text color={toolInfo.color}>{toolInfo.name}</Text>
+          <Text color={theme.colors.textMuted}>Target: </Text>
+          <Text color={theme.tools[toolInfo.id].color}>
+            {theme.tools[toolInfo.id].icon} {toolInfo.name}
+          </Text>
         </Box>
       )}
+
+      {getStepIndicator()}
 
       {state.step === "tool" && <ToolSelector onSelect={handleToolSelect} />}
       {state.step === "mode" && (

@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Text, useInput } from "ink";
 import type { SelectedSkill } from "../types";
+import { KeyHint } from "./ui";
+import { theme } from "../utils/theme";
 
 interface Props {
   skills: SelectedSkill[];
@@ -8,9 +10,21 @@ interface Props {
   onBack: () => void;
 }
 
+const isValidKebabCase = (str: string): boolean => {
+  return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(str);
+};
+
 export default function NameEditor({ skills, onConfirm, onBack }: Props) {
   const [editingIdx, setEditingIdx] = useState(0);
   const [names, setNames] = useState(skills.map((s) => s.name));
+  const [cursorVisible, setCursorVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCursorVisible((v) => !v);
+    }, 530);
+    return () => clearInterval(timer);
+  }, []);
 
   useInput((input, key) => {
     if (key.upArrow) {
@@ -27,46 +41,138 @@ export default function NameEditor({ skills, onConfirm, onBack }: Props) {
       });
     }
     if (key.return) {
-      const updated = skills.map((s, i) => ({ ...s, name: names[i] }));
-      onConfirm(updated);
+      const allValid = names.every((n) => n.length > 0 && isValidKebabCase(n));
+      if (allValid) {
+        const updated = skills.map((s, i) => ({ ...s, name: names[i] }));
+        onConfirm(updated);
+      }
     }
     if (key.escape || input === "b") {
       onBack();
     }
     if (input && !key.ctrl && !key.meta && input.length === 1) {
-      setNames((n) => {
-        const copy = [...n];
-        copy[editingIdx] += input;
-        return copy;
-      });
+      const char = input.toLowerCase();
+      if (/[a-z0-9-]/.test(char)) {
+        setNames((n) => {
+          const copy = [...n];
+          copy[editingIdx] += char;
+          return copy;
+        });
+      }
     }
   });
+
+  const allValid = names.every((n) => n.length > 0 && isValidKebabCase(n));
 
   return (
     <Box flexDirection="column">
       <Box marginBottom={1}>
-        <Text color="gray">Edit skill names (kebab-case):</Text>
+        <Text color={theme.colors.text}>Edit skill names </Text>
+        <Text color={theme.colors.textMuted}>(kebab-case only)</Text>
       </Box>
 
-      {skills.map((skill, idx) => (
-        <Box key={skill.prompt.id}>
-          {idx === editingIdx ? <Text color="cyan">▸</Text> : <Text> </Text>}
-          <Text> </Text>
-          <Text color="gray">{idx + 1}.</Text>
-          <Text> </Text>
-          <Text color="white">{names[idx]}</Text>
-        </Box>
-      ))}
+      {skills.map((skill, idx) => {
+        const isEditing = idx === editingIdx;
+        const name = names[idx];
+        const isValid = name.length > 0 && isValidKebabCase(name);
+        const isEmpty = name.length === 0;
+
+        return (
+          <Box key={skill.prompt.id} flexDirection="column" marginBottom={1}>
+            <Box>
+              <Text color={theme.colors.textMuted}>
+                {idx + 1}. {skill.prompt.title}
+              </Text>
+            </Box>
+            <Box>
+              <Text color={isEditing ? theme.colors.primary : theme.colors.textDim}>
+                {isEditing ? theme.icons.cursor : " "}{" "}
+              </Text>
+              <Text color={theme.colors.border}>
+                {theme.icons.box.topLeft}
+                {theme.icons.box.horizontal.repeat(38)}
+                {theme.icons.box.topRight}
+              </Text>
+            </Box>
+            <Box>
+              <Text>{"  "}</Text>
+              <Text
+                color={
+                  isEditing
+                    ? theme.colors.primary
+                    : isValid
+                      ? theme.colors.border
+                      : theme.colors.error
+                }
+              >
+                {theme.icons.box.vertical}
+              </Text>
+              <Text color={isEditing ? theme.colors.text : theme.colors.textMuted}>
+                {" "}
+                {name}
+              </Text>
+              {isEditing && (
+                <Text color={cursorVisible ? theme.colors.primary : "transparent"}>
+                  ▌
+                </Text>
+              )}
+              <Text>{"".padEnd(Math.max(0, 36 - name.length - (isEditing ? 1 : 0)))}</Text>
+              <Text
+                color={
+                  isEditing
+                    ? theme.colors.primary
+                    : isValid
+                      ? theme.colors.border
+                      : theme.colors.error
+                }
+              >
+                {theme.icons.box.vertical}
+              </Text>
+            </Box>
+            <Box>
+              <Text>{"  "}</Text>
+              <Text color={theme.colors.border}>
+                {theme.icons.box.bottomLeft}
+                {theme.icons.box.horizontal.repeat(38)}
+                {theme.icons.box.bottomRight}
+              </Text>
+            </Box>
+            {!isValid && !isEmpty && (
+              <Box paddingLeft={3}>
+                <Text color={theme.colors.error}>
+                  ✗ Use lowercase letters, numbers, and hyphens only
+                </Text>
+              </Box>
+            )}
+            {isEmpty && (
+              <Box paddingLeft={3}>
+                <Text color={theme.colors.error}>✗ Name cannot be empty</Text>
+              </Box>
+            )}
+          </Box>
+        );
+      })}
 
       <Box marginTop={1}>
-        <Text color="gray">↑↓ navigate, </Text>
-        <Text color="cyan">Edit name</Text>
-        <Text color="gray">, </Text>
-        <Text color="cyan">Enter</Text>
-        <Text color="gray"> confirm, </Text>
-        <Text color="cyan">Esc</Text>
-        <Text color="gray"> back</Text>
+        {allValid ? (
+          <Text color={theme.colors.success}>
+            {theme.icons.check} All names are valid
+          </Text>
+        ) : (
+          <Text color={theme.colors.warning}>
+            ⚠ Fix validation errors to continue
+          </Text>
+        )}
       </Box>
+
+      <KeyHint
+        hints={[
+          { key: "↑↓", label: "switch field" },
+          { key: "Type", label: "edit name" },
+          { key: "Enter", label: "confirm" },
+          { key: "Esc", label: "back" },
+        ]}
+      />
     </Box>
   );
 }

@@ -1,10 +1,18 @@
+export interface Author {
+  id: string;
+  name: string;
+  username: string;
+  avatar: string;
+  verified: boolean;
+}
+
 export interface Prompt {
   id: string;
   title: string;
   description: string;
   content: string;
   type: string;
-  author: string;
+  author: Author | string;
   category: string;
   tags: string[];
   votes: number;
@@ -59,10 +67,16 @@ export interface FavoritePrompt {
   description: string;
   content: string;
   type: string;
-  author: string;
+  author: Author | string;
   category: string;
   tags: string[];
   votes: number;
   createdAt: string;
   favoritedAt: string;
 }
+
+export const getAuthorName = (author: Author | string | undefined): string => {
+  if (!author) return "Anonymous";
+  if (typeof author === "string") return author;
+  return author.name || author.username || "Anonymous";
+};

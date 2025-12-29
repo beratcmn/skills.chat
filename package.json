@@ -1,6 +1,6 @@
 {
   "name": "skills.chat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Search and install AI agent skills from prompts.chat into your local development environment",
   "type": "module",
   "main": "./dist/index.js",
@@ -25,6 +25,7 @@
     "claude",
     "cursor",
     "codex",
+    "ampcode",
     "mcp"
   ],
   "author": "Berat Cimen",

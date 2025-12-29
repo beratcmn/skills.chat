@@ -44,6 +44,7 @@ export const theme = {
     opencode: { color: "#a5b4fc", icon: "◇" },
     claude: { color: "#fcd34d", icon: "◈" },
     cursor: { color: "#c4b5fd", icon: "◉" },
+    ampcode: { color: "#fdba74", icon: "◎" },
   },
 
   icons: {

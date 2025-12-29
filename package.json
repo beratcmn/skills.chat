@@ -1,0 +1,24 @@
+{
+  "name": "skills.chat",
+  "module": "src/index.tsx",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "skills.chat": "./src/index.tsx"
+  },
+  "scripts": {
+    "start": "bun run src/index.tsx"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "ink": "^6.6.0",
+    "react": "^19.2.3"
+  }
+}

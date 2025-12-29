@@ -49,12 +49,19 @@ export default function ToolSelector({ onSelect }: Props) {
               width={52}
             >
               <Box>
-                <Text color={toolTheme.color} bold>
+                <Text
+                  color={isSelected ? toolTheme.color : theme.colors.textDim}
+                  bold={isSelected}
+                >
                   {toolTheme.icon} {tool.name}
                 </Text>
               </Box>
               <Box>
-                <Text color={theme.colors.textMuted}>
+                <Text
+                  color={
+                    isSelected ? theme.colors.textMuted : theme.colors.textDim
+                  }
+                >
                   {TOOL_DESCRIPTIONS[tool.id]}
                 </Text>
               </Box>

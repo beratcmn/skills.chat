@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, useInput } from "ink";
-import { type FavoritePrompt, getAuthorName } from "../types";
+import { type FavoritePrompt, getAuthorName, getCategoryName } from "../types";
 import { loadFavorites, removeFavorite } from "../utils/favorites";
 import { KeyHint, Badge, Card } from "./ui";
 import { theme } from "../utils/theme";
@@ -164,7 +164,7 @@ export default function Favorites({ onSelect, onBack }: Props) {
                   </Text>
                   <Text color={theme.colors.textDim}>•</Text>
                   <Text color={theme.colors.textDim}>
-                    {fav.category || "General"}
+                    {getCategoryName(fav.category)}
                   </Text>
                 </Box>
               </Box>

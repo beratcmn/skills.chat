@@ -6,6 +6,24 @@ export interface Author {
   verified: boolean;
 }
 
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  icon?: string;
+  order?: number;
+  pinned?: boolean;
+  parentId?: string | null;
+  parent?: Category | null;
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 export interface Prompt {
   id: string;
   title: string;
@@ -13,8 +31,8 @@ export interface Prompt {
   content: string;
   type: string;
   author: Author | string;
-  category: string;
-  tags: string[];
+  category: Category | string;
+  tags: (Tag | string)[];
   votes: number;
   createdAt: string;
 }
@@ -68,8 +86,8 @@ export interface FavoritePrompt {
   content: string;
   type: string;
   author: Author | string;
-  category: string;
-  tags: string[];
+  category: Category | string;
+  tags: (Tag | string)[];
   votes: number;
   createdAt: string;
   favoritedAt: string;
@@ -79,4 +97,15 @@ export const getAuthorName = (author: Author | string | undefined): string => {
   if (!author) return "Anonymous";
   if (typeof author === "string") return author;
   return author.name || author.username || "Anonymous";
+};
+
+export const getCategoryName = (category: Category | string | undefined): string => {
+  if (!category) return "General";
+  if (typeof category === "string") return category;
+  return category.name || "General";
+};
+
+export const getTagName = (tag: Tag | string): string => {
+  if (typeof tag === "string") return tag;
+  return tag.name || tag.slug;
 };

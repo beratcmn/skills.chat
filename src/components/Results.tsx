@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, useInput } from "ink";
-import { type Prompt, getAuthorName } from "../types";
+import { type Prompt, getAuthorName, getCategoryName, getTagName } from "../types";
 import { isFavorite, toggleFavorite } from "../utils/favorites";
 import { KeyHint, Badge, Divider } from "./ui";
 import { theme } from "../utils/theme";
@@ -158,10 +158,10 @@ export default function Results({
                 </Text>
                 <Box marginTop={0} gap={1}>
                   <Badge
-                    backgroundColor={getCategoryColor(prompt.category)}
+                    backgroundColor={getCategoryColor(getCategoryName(prompt.category))}
                     color={theme.colors.text}
                   >
-                    {prompt.category || "General"}
+                    {getCategoryName(prompt.category)}
                   </Badge>
                   <Text color={theme.colors.textDim}>
                     by {getAuthorName(prompt.author)}
@@ -172,9 +172,9 @@ export default function Results({
                 </Box>
                 {prompt.tags && prompt.tags.length > 0 && (
                   <Box marginTop={0} gap={1}>
-                    {prompt.tags.slice(0, 4).map((tag) => (
-                      <Text key={tag} color={theme.colors.textDim}>
-                        #{tag}
+                    {prompt.tags.slice(0, 4).map((tag, tagIdx) => (
+                      <Text key={tagIdx} color={theme.colors.textDim}>
+                        #{getTagName(tag)}
                       </Text>
                     ))}
                   </Box>

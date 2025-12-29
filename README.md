@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+  <img src="assets/hero.png" alt="skills.chat demo" width="800">
+</p>
+
+<p align="center">
   <a href="https://www.npmjs.com/package/skills.chat"><img src="https://img.shields.io/npm/v/skills.chat.svg" alt="npm version"></a>
   <a href="https://github.com/beratcmn/skills.chat/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.0-blue.svg" alt="TypeScript"></a>

@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, useInput } from "ink";
-import { type Prompt, getAuthorName, getCategoryName, getTagName } from "../types";
+import {
+  type Prompt,
+  getAuthorName,
+  getCategoryName,
+  getTagName,
+} from "../types";
 import { isFavorite, toggleFavorite } from "../utils/favorites";
 import { KeyHint, Badge, Divider } from "./ui";
 import { theme } from "../utils/theme";
@@ -127,14 +132,18 @@ export default function Results({
           >
             <Box>
               {isSelected ? (
-                <Text color={theme.colors.success}>{theme.icons.selected} </Text>
+                <Text color={theme.colors.success}>
+                  {theme.icons.selected}{" "}
+                </Text>
               ) : (
                 <Text color={theme.colors.textDim}>○ </Text>
               )}
               {isFav ? (
                 <Text color={theme.colors.amber}>{theme.icons.star} </Text>
               ) : (
-                <Text color={theme.colors.textDim}>{theme.icons.starEmpty} </Text>
+                <Text color={theme.colors.textDim}>
+                  {theme.icons.starEmpty}{" "}
+                </Text>
               )}
               <Text
                 color={
@@ -158,7 +167,9 @@ export default function Results({
                 </Text>
                 <Box marginTop={0} gap={1}>
                   <Badge
-                    backgroundColor={getCategoryColor(getCategoryName(prompt.category))}
+                    backgroundColor={getCategoryColor(
+                      getCategoryName(prompt.category),
+                    )}
                     color={theme.colors.text}
                   >
                     {getCategoryName(prompt.category)}
@@ -166,9 +177,7 @@ export default function Results({
                   <Text color={theme.colors.textDim}>
                     by {getAuthorName(prompt.author)}
                   </Text>
-                  <Text color={theme.colors.amber}>
-                    ↑{prompt.votes || 0}
-                  </Text>
+                  <Text color={theme.colors.amber}>↑{prompt.votes || 0}</Text>
                 </Box>
                 {prompt.tags && prompt.tags.length > 0 && (
                   <Box marginTop={0} gap={1}>
@@ -203,7 +212,11 @@ export default function Results({
             {results
               .filter((p) => selected.has(p.id))
               .map((p) => (
-                <Badge key={p.id} backgroundColor={theme.colors.success} color="#000">
+                <Badge
+                  key={p.id}
+                  backgroundColor={theme.colors.success}
+                  color="#000"
+                >
                   {p.title}
                 </Badge>
               ))}

@@ -133,7 +133,9 @@ export default function Favorites({ onSelect, onBack }: Props) {
           >
             <Box>
               {isSelected ? (
-                <Text color={theme.colors.success}>{theme.icons.selected} </Text>
+                <Text color={theme.colors.success}>
+                  {theme.icons.selected}{" "}
+                </Text>
               ) : (
                 <Text color={theme.colors.textDim}>○ </Text>
               )}
@@ -191,7 +193,11 @@ export default function Favorites({ onSelect, onBack }: Props) {
             {favorites
               .filter((f) => selected.has(f.id))
               .map((f) => (
-                <Badge key={f.id} backgroundColor={theme.colors.success} color="#000">
+                <Badge
+                  key={f.id}
+                  backgroundColor={theme.colors.success}
+                  color="#000"
+                >
                   {f.title}
                 </Badge>
               ))}

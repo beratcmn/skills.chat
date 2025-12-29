@@ -7,7 +7,10 @@ interface Props {
   color?: string;
 }
 
-export default function Divider({ width = 40, color = theme.colors.border }: Props) {
+export default function Divider({
+  width = 40,
+  color = theme.colors.border,
+}: Props) {
   return (
     <Box marginY={1}>
       <Text color={color}>{theme.icons.box.horizontal.repeat(width)}</Text>

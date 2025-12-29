@@ -99,7 +99,9 @@ export const getAuthorName = (author: Author | string | undefined): string => {
   return author.name || author.username || "Anonymous";
 };
 
-export const getCategoryName = (category: Category | string | undefined): string => {
+export const getCategoryName = (
+  category: Category | string | undefined,
+): string => {
   if (!category) return "General";
   if (typeof category === "string") return category;
   return category.name || "General";

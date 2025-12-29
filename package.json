@@ -1,23 +1,53 @@
 {
   "name": "skills.chat",
-  "module": "src/index.tsx",
+  "version": "1.0.0",
+  "description": "Search and install AI agent skills from prompts.chat into your local development environment",
   "type": "module",
-  "private": true,
+  "main": "./dist/index.js",
   "bin": {
-    "skills.chat": "./src/index.tsx"
+    "skills.chat": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "start": "bun run src/index.tsx"
+    "start": "bun run src/index.tsx",
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "cli",
+    "ai",
+    "prompts",
+    "skills",
+    "agent",
+    "opencode",
+    "claude",
+    "cursor",
+    "codex",
+    "mcp"
+  ],
+  "author": "Berat Cimen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beratcmn/skills.chat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/beratcmn/skills.chat/issues"
+  },
+  "homepage": "https://github.com/beratcmn/skills.chat#readme",
+  "engines": {
+    "node": ">=18"
   },
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
+    "@types/bun": "latest",
     "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
     "ink": "^6.6.0",
     "ink-big-text": "^2.0.0",
     "ink-gradient": "^3.0.0",

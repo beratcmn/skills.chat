@@ -21,7 +21,9 @@ export default function KeyHint({ hints }: Props) {
             {hint.key}{" "}
           </Text>
           <Text color={theme.colors.textMuted}> {hint.label}</Text>
-          {idx < hints.length - 1 && <Text color={theme.colors.textDim}> </Text>}
+          {idx < hints.length - 1 && (
+            <Text color={theme.colors.textDim}> </Text>
+          )}
         </Box>
       ))}
     </Box>

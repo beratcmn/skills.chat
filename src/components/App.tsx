@@ -136,7 +136,9 @@ export default function App() {
                 {isActive ? "●" : "○"}
               </Text>
               {idx < stepLabels.length - 1 && (
-                <Text color={isActive ? theme.colors.success : theme.colors.textDim}>
+                <Text
+                  color={isActive ? theme.colors.success : theme.colors.textDim}
+                >
                   {" ─ "}
                 </Text>
               )}

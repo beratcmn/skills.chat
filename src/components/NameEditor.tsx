@@ -85,7 +85,9 @@ export default function NameEditor({ skills, onConfirm, onBack }: Props) {
               </Text>
             </Box>
             <Box>
-              <Text color={isEditing ? theme.colors.primary : theme.colors.textDim}>
+              <Text
+                color={isEditing ? theme.colors.primary : theme.colors.textDim}
+              >
                 {isEditing ? theme.icons.cursor : " "}{" "}
               </Text>
               <Text color={theme.colors.border}>
@@ -107,16 +109,22 @@ export default function NameEditor({ skills, onConfirm, onBack }: Props) {
               >
                 {theme.icons.box.vertical}
               </Text>
-              <Text color={isEditing ? theme.colors.text : theme.colors.textMuted}>
+              <Text
+                color={isEditing ? theme.colors.text : theme.colors.textMuted}
+              >
                 {" "}
                 {name}
               </Text>
               {isEditing && (
-                <Text color={cursorVisible ? theme.colors.primary : "transparent"}>
+                <Text
+                  color={cursorVisible ? theme.colors.primary : "transparent"}
+                >
                   ▌
                 </Text>
               )}
-              <Text>{"".padEnd(Math.max(0, 36 - name.length - (isEditing ? 1 : 0)))}</Text>
+              <Text>
+                {"".padEnd(Math.max(0, 36 - name.length - (isEditing ? 1 : 0)))}
+              </Text>
               <Text
                 color={
                   isEditing

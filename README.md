@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
+  <a href="https://www.npmjs.com/package/skills.chat"><img src="https://img.shields.io/npm/v/skills.chat.svg" alt="npm version"></a>
   <a href="https://github.com/beratcmn/skills.chat/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <a href="https://bun.sh"><img src="https://img.shields.io/badge/runtime-Bun-f9f1e1.svg" alt="Bun"></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.0-blue.svg" alt="TypeScript"></a>
 </p>
 
@@ -36,10 +36,21 @@
 ## 🚀 Quick Start
 
 ```bash
-# Run directly with bunx
+# Run directly with npx (no install needed)
+npx skills.chat
+
+# Or with bunx
 bunx skills.chat
 
-# Or clone and run locally
+# Or install globally
+npm install -g skills.chat
+skills.chat
+```
+
+### Development
+
+```bash
+# Clone and run locally
 git clone https://github.com/beratcmn/skills.chat.git
 cd skills.chat
 bun install

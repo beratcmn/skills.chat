@@ -67,7 +67,9 @@ export default function Search({ onSearch }: Props) {
         <Text color={theme.colors.border}>{theme.icons.box.vertical}</Text>
         <Text color={theme.colors.pink}> 🔍 </Text>
         <Text color={theme.colors.text}>{query}</Text>
-        <Text color={cursorVisible ? theme.colors.primary : "transparent"}>▌</Text>
+        <Text color={cursorVisible ? theme.colors.primary : "transparent"}>
+          ▌
+        </Text>
         <Text>{"".padEnd(Math.max(0, 44 - query.length))}</Text>
         <Text color={theme.colors.border}>{theme.icons.box.vertical}</Text>
       </Box>
@@ -81,7 +83,10 @@ export default function Search({ onSearch }: Props) {
 
       {loading && (
         <Box marginTop={1}>
-          <Spinner color={theme.colors.cyan} label="Searching prompts.chat..." />
+          <Spinner
+            color={theme.colors.cyan}
+            label="Searching prompts.chat..."
+          />
         </Box>
       )}
 

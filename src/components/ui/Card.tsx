@@ -29,11 +29,7 @@ export default function Card({
       </Text>
       <Box flexDirection="row">
         <Text color={activeColor}>{theme.icons.box.vertical}</Text>
-        <Box
-          flexDirection="column"
-          width={innerWidth}
-          paddingX={padding}
-        >
+        <Box flexDirection="column" width={innerWidth} paddingX={padding}>
           {children}
         </Box>
         <Text color={activeColor}>{theme.icons.box.vertical}</Text>

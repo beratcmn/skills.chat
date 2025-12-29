@@ -56,12 +56,16 @@ export default function InstallSummary({ skills, tool, onInstall, onBack }: Prop
 interface SuccessProps {
   count: number;
   onContinue: () => void;
+  onExit: () => void;
 }
 
-export function Success({ count, onContinue }: SuccessProps) {
+export function Success({ count, onContinue, onExit }: SuccessProps) {
   useInput((input, key) => {
     if (key.return || input === ' ') {
       onContinue();
+    }
+    if (key.escape || input === 'q') {
+      onExit();
     }
   });
 
@@ -76,7 +80,9 @@ export function Success({ count, onContinue }: SuccessProps) {
       </Box>
       <Box>
         <Text color="cyan">Enter</Text>
-        <Text color="gray"> to search more</Text>
+        <Text color="gray"> search more, </Text>
+        <Text color="cyan">Esc/q</Text>
+        <Text color="gray"> exit</Text>
       </Box>
     </Box>
   );

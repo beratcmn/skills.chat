@@ -22,7 +22,7 @@ export default function Search({ onSearch }: Props) {
     if (key.escape) {
       process.exit(0);
     }
-    if (input && !key.ctrl && !key.meta && input.length === 1 && input !== ' ') {
+    if (input && !key.ctrl && !key.meta && input.length === 1) {
       setQuery(q => q + input);
     }
   });

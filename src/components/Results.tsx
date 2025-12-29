@@ -74,7 +74,7 @@ export default function Results({ results, selected, onSelect, onBack }: Props) 
             <Text> </Text>
             <Text color="gray">{globalIdx + 1}.</Text>
             <Text> </Text>
-            <Text color={isCursor ? 'white' : 'dim'}>{prompt.title}</Text>
+            <Text color={isSelected ? 'green' : isCursor ? 'white' : 'dim'}>{prompt.title}</Text>
           </Box>
         );
       })}
@@ -84,6 +84,17 @@ export default function Results({ results, selected, onSelect, onBack }: Props) 
           <Text color="gray">
             {cursor > 0 ? '↑' : ' '} {cursor < results.length - 1 ? '↓' : ' '}
           </Text>
+        </Box>
+      )}
+
+      {selected.size > 0 && (
+        <Box marginTop={1} flexDirection="column">
+          <Text color="green" bold>Selected:</Text>
+          {results.filter(p => selected.has(p.id)).map(p => (
+            <Box key={p.id}>
+              <Text color="green">  • {p.title}</Text>
+            </Box>
+          ))}
         </Box>
       )}
 

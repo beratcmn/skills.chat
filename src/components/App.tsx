@@ -123,6 +123,7 @@ export default function App() {
         <Success
           count={state.skills.length}
           onContinue={handleDone}
+          onExit={() => process.exit(0)}
         />
       )}
     </Box>

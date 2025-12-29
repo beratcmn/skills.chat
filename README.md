@@ -37,7 +37,7 @@
 | Anthropic Claude | `.claude/skills/<name>/SKILL.md`  |
 | Cursor           | `.cursor/rules/<name>/SKILL.md`   |
 | GitHub Copilot   | `.github/skills/<name>/SKILL.md`  |
-| Letta Code       | `.skills/<name>/SKILL.md`          |
+| Letta Code       | `.skills/<name>/SKILL.md`         |
 | Goose            | `.goose/skills/<name>/SKILL.md`   |
 | Amp Code         | `.agents/skills/<name>/SKILL.md`  |
 
@@ -68,28 +68,31 @@ bun run start
 ## ⌨️ Keyboard Controls
 
 ### Tool Selector (Grid View)
-| Key       | Action        |
-| --------- | ------------- |
-| `←` `→`   | Navigate columns |
-| `↑` `↓`   | Navigate rows    |
-| `Enter`    | Select tool     |
+
+| Key     | Action           |
+| ------- | ---------------- |
+| `←` `→` | Navigate columns |
+| `↑` `↓` | Navigate rows    |
+| `Enter` | Select tool      |
 
 ### Search & Results
-| Key     | Action                              |
-| ------- | ----------------------------------- |
-| `↑` `↓` | Navigate / scroll                   |
-| `Space` | Select / deselect                   |
-| `Enter` | Confirm / proceed                   |
-| `f`     | Toggle favorite                     |
-| `Esc`   | Go back                             |
+
+| Key     | Action            |
+| ------- | ----------------- |
+| `↑` `↓` | Navigate / scroll |
+| `Space` | Select / deselect |
+| `Enter` | Confirm / proceed |
+| `f`     | Toggle favorite   |
+| `Esc`   | Go back           |
 
 ### Favorites View
-| Key     | Action                              |
-| ------- | ----------------------------------- |
-| `↑` `↓` | Navigate                            |
-| `d`     | Remove favorite                     |
-| `Enter` | Select skill                        |
-| `Esc`   | Go back                             |
+
+| Key     | Action          |
+| ------- | --------------- |
+| `↑` `↓` | Navigate        |
+| `d`     | Remove favorite |
+| `Enter` | Select skill    |
+| `Esc`   | Go back         |
 
 ## 📁 How It Works
 
@@ -98,7 +101,6 @@ bun run start
 3. **Select skills** — Pick one or more skills to install
 4. **Edit names** — Customize the skill names (kebab-case)
 5. **Install** — Skills are saved to your current working directory
-
 
 ## 💾 Favorites
 

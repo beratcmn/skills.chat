@@ -110,14 +110,14 @@ import { theme } from "../utils/theme";
 
 ### Naming Conventions
 
-| Element | Convention | Example |
-|---------|-----------|---------|
-| Components | PascalCase | `function ToolSelector()` |
-| Interfaces | PascalCase | `interface Props`, `interface AppState` |
-| Type aliases | PascalCase | `type Tool = "codex" \| "opencode"` |
-| Constants | SCREAMING_SNAKE_CASE | `const TOOLS`, `const BASE_URL` |
-| Variables/functions | camelCase | `handleToolSelect`, `toolInfo` |
-| Handler functions | `handle` + Action | `handleSearch`, `handleSelect` |
+| Element             | Convention           | Example                                 |
+| ------------------- | -------------------- | --------------------------------------- |
+| Components          | PascalCase           | `function ToolSelector()`               |
+| Interfaces          | PascalCase           | `interface Props`, `interface AppState` |
+| Type aliases        | PascalCase           | `type Tool = "codex" \| "opencode"`     |
+| Constants           | SCREAMING_SNAKE_CASE | `const TOOLS`, `const BASE_URL`         |
+| Variables/functions | camelCase            | `handleToolSelect`, `toolInfo`          |
+| Handler functions   | `handle` + Action    | `handleSearch`, `handleSelect`          |
 
 ### Type Definitions
 
@@ -157,7 +157,10 @@ interface Props {
   borderColor?: string;
 }
 
-export default function Card({ children, borderColor = theme.colors.border }: Props) {
+export default function Card({
+  children,
+  borderColor = theme.colors.border,
+}: Props) {
   // Component implementation
 }
 
@@ -260,7 +263,7 @@ Key settings from `tsconfig.json`:
 ## Dependencies
 
 **Runtime**: ink, ink-big-text, ink-gradient, ink-spinner, react
-**Dev**: typescript, tsup, @types/*
+**Dev**: typescript, tsup, @types/\*
 
 ## Common Patterns
 

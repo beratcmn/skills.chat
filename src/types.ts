@@ -43,7 +43,7 @@ export interface SearchResult {
   prompts: Prompt[];
 }
 
-export type Tool = "codex" | "opencode" | "claude" | "cursor";
+export type Tool = "codex" | "opencode" | "claude" | "cursor" | "ampcode";
 
 export interface ToolInfo {
   id: Tool;
@@ -72,6 +72,12 @@ export const TOOLS: ToolInfo[] = [
     basePath: ".claude/skills",
   },
   { id: "cursor", name: "Cursor", color: "#7c3aed", basePath: ".cursor/rules" },
+  {
+    id: "ampcode",
+    name: "Amp Code",
+    color: "#f97316",
+    basePath: ".agents/skills",
+  },
 ];
 
 export interface SelectedSkill {

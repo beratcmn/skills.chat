@@ -32,6 +32,7 @@
 | OpenCode         | `.opencode/skill/<name>/SKILL.md` |
 | Anthropic Claude | `.claude/skills/<name>/SKILL.md`  |
 | Cursor           | `.cursor/rules/<name>/SKILL.md`   |
+| Amp Code         | `.agents/skills/<name>/SKILL.md`  |
 
 ## 🚀 Quick Start
 

@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <video src="assets/hero-animated.webm" alt="skills.chat demo" width="800">
+  <img src="assets/hero-animated-2.gif" alt="skills.chat demo" width="800">
 </p>
 
 <p align="center">
